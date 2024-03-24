@@ -1,21 +1,21 @@
-- name: "Install php8.2"
+- name: "Install php{{ php_version }}"
   apt_rpm:
     name: "{{ item }}"
     state: "present"
   with_items:
-    - "php8.2-fpm-fcgi"
-    - "php8.2-mysqlnd"
-    - "php8.2-mysqlnd-mysqli"
+    - "php{{ php_version }}-fpm-fcgi"
+    - "php{{ php_version }}-mysqlnd"
+    - "php{{ php_version }}-mysqlnd-mysqli"
 
-- name: "Start and enable php8.2-fpm"
+- name: "Start and enable php{{ php_version }}-fpm"
   systemd:
-    name: "php8.2-fpm"
+    name: "php{{ php_version }}-fpm"
     state: "started"
     enabled: true
 
 - name: "Copy testphp.conf for nginx"
-  copy:
-    src: "files/testphp.conf"
+  template:
+    src: "templates/testphp.conf.j2"
     dest: /etc/nginx/sites-available.d/testphp.conf
 
 - name: "Activate the configuration"

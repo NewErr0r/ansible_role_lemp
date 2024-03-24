@@ -5,8 +5,8 @@
     update_cache: true
 
 - name: "Copy default.conf for nginx"
-  copy:
-    src: "files/default.conf"
+  template:
+    src: "templates/default.conf.j2"
     dest: /etc/nginx/sites-available.d/default.conf
 
 - name: "Activate the configuration"

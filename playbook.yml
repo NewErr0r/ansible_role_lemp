@@ -3,6 +3,10 @@
 - hosts: alt
   become: true
 
+  vars:
+    nginx_port: 80
+    php_version: 8.2
+
   roles:
     - nginx
     - mysql

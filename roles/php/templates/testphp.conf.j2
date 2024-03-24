@@ -1,5 +1,5 @@
 server {
-    listen  *:80;
+    listen  *:{{ nginx_port }};
     server_name testphp.local;
     index       index.php;
     root /var/www/testphp;
@@ -10,7 +10,7 @@ server {
     location ~ \.php$ {
         try_files $uri =404;
         include /etc/nginx/fastcgi_params;
-        fastcgi_pass unix:/var/run/php8.2-fpm/php8.2-fpm.sock;
+        fastcgi_pass unix:/var/run/php{{ php_version }}-fpm/php{{ php_version }}-fpm.sock;
         fastcgi_param SCRIPT_FILENAME /var/www/testphp/$fastcgi_script_name;
     }
     access_log /var/log/nginx/testphp.local-access.log;

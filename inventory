@@ -1,6 +1,6 @@
 alt:
   hosts: 
-    <HOSTNAME>:
+    192.168.15.216:
       ansible_ssh_user: <USERNAME>
       ansible_ssh_pass: <USERPASS>
       ansible_python_interpreter: /usr/bin/python3
