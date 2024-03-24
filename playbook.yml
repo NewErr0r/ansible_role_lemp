@@ -1,0 +1,15 @@
+# Install LEMP on ALT Linux
+---
+- hosts: alt
+  become: true
+
+  roles:
+    - nginx
+    - mysql
+    - php
+
+  tasks:
+    - name: "Restart nginx"
+      systemd:
+        name: "nginx"
+        state: "restarted"

@@ -1,0 +1,34 @@
+- name: "Install nginx"
+  apt_rpm:
+    name: "nginx"
+    state: "present"
+    update_cache: true
+
+- name: "Copy default.conf for nginx"
+  copy:
+    src: "files/default.conf"
+    dest: /etc/nginx/sites-available.d/default.conf
+
+- name: "Activate the configuration"
+  file: 
+    src: /etc/nginx/sites-available.d/default.conf
+    dest: /etc/nginx/sites-enabled.d/default.conf
+    state: "link"
+
+- name: "Creating a directory for the test landing page"
+  file:
+    path: /var/www/html
+    recurse: true
+    state: "directory"
+    mode: "0755"
+
+- name: "Copy our lending to /var/www/html folder"
+  copy:
+    src: "files/html"
+    dest: /var/www/
+
+- name: "Start and enable nginx"
+  systemd:
+    name: "nginx"
+    state: "started"
+    enabled: true

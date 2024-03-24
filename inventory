@@ -1,0 +1,16 @@
+alt:
+  hosts: 
+    <HOSTNAME>:
+      ansible_ssh_user: <USERNAME>
+      ansible_ssh_pass: <USERPASS>
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_become_method: su
+      ansible_become_pass: <ROOTPASS>
+
+## cloud starterkit
+#    158.160.149.21:
+#      ansible_ssh_user: user
+#      ansible_python_interpreter: /usr/bin/python3
+#      ansible_ssh_private_key_file: <PATH_PRIVATE_KEY>
+#      ansible_become_method: sudo
+

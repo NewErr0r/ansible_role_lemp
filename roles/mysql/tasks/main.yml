@@ -1,0 +1,14 @@
+- name: "Install MySQL-server"
+  apt_rpm:
+    name: "{{ item }}"
+    state: "present"
+    update_cache: true
+  with_items:
+    - "MySQL-server"
+    - "python3-module-pymysql"
+
+- name: "Start and enable mysqld"
+  systemd: 
+    name: "mysqld"
+    state: "started"
+    enabled: true

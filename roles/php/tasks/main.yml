@@ -1,0 +1,36 @@
+- name: "Install php8.2"
+  apt_rpm:
+    name: "{{ item }}"
+    state: "present"
+  with_items:
+    - "php8.2-fpm-fcgi"
+    - "php8.2-mysqlnd"
+    - "php8.2-mysqlnd-mysqli"
+
+- name: "Start and enable php8.2-fpm"
+  systemd:
+    name: "php8.2-fpm"
+    state: "started"
+    enabled: true
+
+- name: "Copy testphp.conf for nginx"
+  copy:
+    src: "files/testphp.conf"
+    dest: /etc/nginx/sites-available.d/testphp.conf
+
+- name: "Activate the configuration"
+  file: 
+    src: /etc/nginx/sites-available.d/testphp.conf
+    dest: /etc/nginx/sites-enabled.d/testphp.conf
+    state: "link"
+
+- name: "Create directory /var/www/testphp"
+  file:
+    path: /var/www/testphp
+    recurse: true
+    state: "directory"
+
+- name: "Copy our phptest to /var/www/testphp folder"
+  copy:
+    src: "files/testphp"
+    dest: /var/www/
